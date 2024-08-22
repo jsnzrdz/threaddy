@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { TweetModel } from "../models/tweet-model";
 import TweetEditor from "./TweetEditor";
+import React from "react";
 
 const initialThread: TweetModel[] = [
     {
@@ -42,12 +43,12 @@ export default function ThreadEditor() {
             <ol className="mt-6 flex flex-col gap-2 mx-3">
                 {
                     tweets.map((tweet, index) =>
-                        <>
-                            <li key={tweet.threadPosition} >
+                        <React.Fragment key={tweet.threadPosition}>
+                            <li>
 
                                 <TweetEditor
                                     tweet={tweet}
-                                    isTheOnlyTweet={tweets.length === 1}
+                                    threadLength={tweets.length}
                                     onUpdateContent={updateTweetContent}
                                     onDeleteTweet={deleteTweet}
                                 />
@@ -56,8 +57,8 @@ export default function ThreadEditor() {
                                 // Mostrar flecha de unión de tweets
                                 index < tweets.length - 1 && index !== tweets.length - 1 ?
                                     <div className="flex justify-center">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-10">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-10">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                                         </svg>
                                     </div>
                                     : ""
@@ -65,7 +66,7 @@ export default function ThreadEditor() {
                             {
                                 // Mostrar el botón de añadir si es el último tweet
                                 index === tweets.length - 1 &&
-                                <div className="flex flex-col gap-4 md:flex-row md:justify-between">
+                                <div className="mt-2 flex flex-col gap-2 md:flex-row md:justify-between">
                                     <button
                                         className="min-w-28 py-2 px-3 border border-white rounded-md font-semibold tracking-wider"
                                         onClick={addTweet}
@@ -80,7 +81,7 @@ export default function ThreadEditor() {
                                     </button>
                                 </div>
                             }
-                        </>
+                        </React.Fragment>
 
                     )
                 }
