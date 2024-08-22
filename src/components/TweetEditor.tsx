@@ -33,27 +33,41 @@ export default function TweetEditor({ tweet, isTheOnlyTweet, onUpdateContent, on
     }, [tweet.textContent]);
 
     return (
-        <div className="flex-grow min-w-0 max-w-lg animate-in fade-in duration-1000">
+        <div className="flex-grow min-w-0 max-w-lg">
 
             <div className="relative">
                 <textarea
-                    className="py-3 px-4 h-32 w-full bg-gray-900/40 text-white border border-white rounded-lg resize-none"
+                    className="py-3 px-4 h-32 w-full bg-gray-900/80 border border-gray-600 rounded-lg resize-none"
                     value={currentTextContent}
                     placeholder="Escribe tu tweet aquí..."
                     onChange={(e) => updateTextContentState(e.target.value)}
                 />
-                <div className="absolute right-2 bottom-2 text-sm text-gray-400">
+                <div className="absolute right-2 bottom-3 text-sm text-gray-400">
                     {getAvailableChars(currentTextContent)}
                 </div>
                 {
                     isTheOnlyTweet ?
                         "" :
-                        <div
-                            className="absolute -right-6 -top-4 font-bold text-4xl text-red-600 cursor-pointer"
-                            onClick={() => onDeleteTweet(tweet.threadPosition)}
-                        >
-                            -
+                        <div>
+                            <div className="flex flex-col gap-2 absolute -right-6 bottom-3 cursor-pointer text-sky-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" strokeWidth={4} />
+                                </svg>
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" strokeWidth={4} />
+                                </svg>
+
+
+                            </div>
+                            <div
+                                className="absolute -right-6 -top-3 font-bold text-4xl text-red-600 cursor-pointer"
+                                onClick={() => onDeleteTweet(tweet.threadPosition)}
+                            >
+                                -
+                            </div>
                         </div>
+
 
                 }
             </div>
