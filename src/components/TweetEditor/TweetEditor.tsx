@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TweetModel } from "../models/tweet-model";
+import { TweetModel } from "../../models/tweet-model";
 
 interface TweetEditorProps {
     tweet: TweetModel,
@@ -48,7 +48,7 @@ export default function TweetEditor({ tweet, threadLength, onUpdateContent, onDe
                 {
                     threadLength === 1 ?
                         "" :
-                        <div>
+                        <>
                             <div className="flex flex-col gap-2 absolute -right-6 bottom-3 cursor-pointer text-sky-600">
                                 {
                                     // Mostrar fecha hacia arriba
@@ -74,7 +74,7 @@ export default function TweetEditor({ tweet, threadLength, onUpdateContent, onDe
                             >
                                 -
                             </div>
-                        </div>
+                        </>
                 }
             </div>
         </div>

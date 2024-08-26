@@ -1,4 +1,4 @@
-import ThreadEditor from "./components/ThreadEditor"
+import ThreadEditor from "./components/ThreadEditor/ThreadEditor"
 
 function App() {
   
