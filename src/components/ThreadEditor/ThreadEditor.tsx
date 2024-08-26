@@ -9,7 +9,8 @@ const initialThread: TweetModel[] = [
     {
         threadPosition: 0,
         textContent: ""
-    } as TweetModel
+    }
+
 ]
 
 export default function ThreadEditor() {
@@ -38,6 +39,23 @@ export default function ThreadEditor() {
         });
     };
 
+    // Mover un tweet a la posición objetivo
+    const moveTweet = (index: number, targetIndex: number) => {
+        setTweets(prevTweets => {
+            // Crear una copia del arreglo actual
+            const updatedTweets = [...prevTweets];
+
+            // Sacar el tweet de la posición actual
+            const [movedTweet] = updatedTweets.splice(index, 1);
+
+            // Insertar el tweet en la nueva posición
+            updatedTweets.splice(targetIndex, 0, movedTweet);
+
+            // Reindexar todos los tweets para asegurar que las posiciones sean correctas
+            return updatedTweets.map((tweet, i) => ({ ...tweet, threadPosition: i }));
+        })
+    }
+
     return (
         <div className="min-w-0 w-[30rem] mx-4 md:mx-0 flex flex-col gap-4">
 
@@ -56,6 +74,7 @@ export default function ThreadEditor() {
                                 threadLength={tweets.length}
                                 onUpdateContent={updateTweetContent}
                                 onDeleteTweet={deleteTweet}
+                                onMoveTweet={moveTweet}
                             />
 
                             {/* Icono de puntos que une los distintos tweets del hilo */}
