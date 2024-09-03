@@ -8,7 +8,8 @@ import TweetRelationIcon from "../TweetEditor/TweetRelationIcon";
 const initialThread: TweetModel[] = [
     {
         threadPosition: 0,
-        textContent: ""
+        textContent: "",
+        mediaContent: [null, null, null, null]
     }
 
 ]
@@ -20,15 +21,37 @@ export default function ThreadEditor() {
     const addTweet = () => {
         setTweets(prevTweets => [
             ...prevTweets,
-            { threadPosition: prevTweets.length, textContent: "" }
+            { threadPosition: prevTweets.length, textContent: "", mediaContent: [null, null, null, null] }
         ]);
     };
 
     // Utilización de funciones inmutables para actualizar el estado
-    const updateTweetContent = (index: number, value: string) => {
+    const updateTextContent = (index: number, value: string) => {
         setTweets(prevTweets => prevTweets.map((tweet, i) =>
             i === index ? { ...tweet, textContent: value } : tweet
         ));
+    };
+
+    const updateMediaContent = (index: number, value: string) => {
+        setTweets(prevTweets =>
+            prevTweets.map((tweet, i) => {
+                if (i === index) {
+                    // Encuentra el primer índice vacío en mediaContent
+                    const nextAvailableIndex = tweet.mediaContent.findIndex((el) => el === null);
+
+                    // Si hay una posición disponible, actualiza ese índice
+                    if (nextAvailableIndex !== -1) {
+                        // Crear una copia del array de mediaContent para mantener la inmutabilidad
+                        const updatedMediaContent = [...tweet.mediaContent];
+                        updatedMediaContent[nextAvailableIndex] = value;
+
+                        // Retorna el tweet con el mediaContent actualizado
+                        return { ...tweet, mediaContent: updatedMediaContent };
+                    }
+                }
+                return tweet;
+            })
+        );
     };
 
     // Eliminación de tweet y reindexación en una sola operación inmutable
@@ -72,7 +95,8 @@ export default function ThreadEditor() {
                             <TweetEditor
                                 tweet={tweet}
                                 threadLength={tweets.length}
-                                onUpdateContent={updateTweetContent}
+                                onUpdateTextContent={updateTextContent}
+                                onUpdateMediaContent={updateMediaContent}
                                 onDeleteTweet={deleteTweet}
                                 onMoveTweet={moveTweet}
                             />
@@ -80,7 +104,7 @@ export default function ThreadEditor() {
                             {/* Icono de puntos que une los distintos tweets del hilo */}
                             {
                                 // mostrar entre dos tweets si no es el primero ni el último y hay más de un tweet
-                                index < tweets.length - 1 && index !== tweets.length - 1 && 
+                                index < tweets.length - 1 && index !== tweets.length - 1 &&
                                 <TweetRelationIcon />
                             }
                         </li>

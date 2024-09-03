@@ -1,19 +1,23 @@
-import { useState } from "react";
 import TweetMediaContentElementList from "./TweetMediaContentElementList";
 
+interface TweetMediaContentProps {
+    mediaContentElements: Array<string | null>
+}
 
-export default function TweetMediaContent() {
-    const [mediaContentElements, setMediaContentElements] = useState<Array<string | null>>([null, null, null, null]);
+export default function TweetMediaContent({mediaContentElements} : TweetMediaContentProps) {
     
-    return (
-            // Si existe algún contenido multimedia para el TweetMediaContent, mostrar lista
-            hasMediaContent(mediaContentElements) && (
-                <div className="grid grid-cols-2 grid-rows-2 gap-4">
-                    <TweetMediaContentElementList mediaContentElements={mediaContentElements}/>
-                </div>
-            )
+    // Si existe algún contenido multimedia para el TweetMediaContent, mostrar lista
+    if (mediaContentElements) {
         
-    );
+        return (
+                (hasMediaContent(mediaContentElements)) && (
+                    <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                        <TweetMediaContentElementList mediaContentElements={mediaContentElements}/>
+                    </div>
+                )
+        );
+    }
+
 }
 
 // Comprobar si existe al menos un contenido multimedia

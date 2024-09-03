@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-export function TweetImageButton() {
-    const [preview, setPreview] = useState<string | null>(null);
-    const [image, setImage] = useState<File | null>(null);
+interface TweetImageButtonProps {
+    onFileUpdated: (objectUrl: string) => void
+}
+
+export function TweetImageButton({onFileUpdated} : TweetImageButtonProps) {
 
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -11,15 +13,11 @@ export function TweetImageButton() {
     }
 
     function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-        console.log(1);
         const file = event.target.files?.[0];
 
         if (file) {
-            setImage(file);
-
             const previewUrl = URL.createObjectURL(file);
-            console.log(previewUrl);
-            setPreview(previewUrl);
+            onFileUpdated(previewUrl);
         }
     }
 
@@ -33,10 +31,6 @@ export function TweetImageButton() {
             </svg>
 
             <input ref={fileInputRef} onChange={handleFileChange} type="file" accept="image/*" hidden />
-
-            {
-                preview && <img src={preview} alt="Vista vista previa" width="200" />
-            }
         </div>
     )
 }
