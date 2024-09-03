@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { TweetModel } from "../../models/tweet-model";
-import TweetButtons from "./TweetButtons";
+import TweetActionButtons from "./TweetActionButtons";
 import TweetAvailableChars from "./TweetAvailableChars";
+import { TweetImageButton } from "./TweetImageButton";
 
 interface TweetEditorProps {
     tweet: TweetModel,
@@ -37,10 +38,14 @@ export default function TweetEditor({ tweet, threadLength, onUpdateContent, onMo
                     placeholder="Escribe tu tweet aquí..."
                     onChange={(e) => updateTextContentState(e.target.value)}
                 />
-                
+
+
+
+                <TweetImageButton />
+
                 <TweetAvailableChars currentTextContent={currentTextContent} />
 
-                <TweetButtons visible={threadLength > 1} threadLength={threadLength} tweet={tweet} onMoveTweet={onMoveTweet} onDeleteTweet={onDeleteTweet}/>
+                <TweetActionButtons visible={threadLength > 1} threadLength={threadLength} tweet={tweet} onMoveTweet={onMoveTweet} onDeleteTweet={onDeleteTweet} />
             </div>
         </div>
     )
