@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TweetAvailableChars from "./TweetAvailableChars";
 import { TweetImageButton } from "./TweetImageButton";
 import { TweetModel } from "../../models/tweet-model";
-import TweetMediaContentPreview from "./TweetMediaContent/TweetMediaContentPreview";
+import TweetMediaContent from "./TweetMediaContent/TweetMediaContent";
 
 interface TweetDesignProps {
     tweet: TweetModel,
@@ -13,7 +13,7 @@ export function TweetDesign({ tweet, onTextContentUpdate }: TweetDesignProps) {
 
     // Contenido de tipo texto del tweet
     const [currentTextContent, setCurrentTextContent] = useState<string>(tweet.textContent ? tweet.textContent : "");
-    const [mediaContentItems, setMediaContentItems] = useState<[]>([]);
+    
 
     // useEffect para sincronizar el estado local con el estado global cuando el tweet cambia
     useEffect(() => {
@@ -38,7 +38,7 @@ export function TweetDesign({ tweet, onTextContentUpdate }: TweetDesignProps) {
             </div>
 
             {/* preview de imágenes y videos */}
-            <TweetMediaContentPreview mediaContentItems={mediaContentItems}/>
+            <TweetMediaContent />
         </div>
     )
 }
