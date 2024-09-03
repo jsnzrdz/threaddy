@@ -24,7 +24,7 @@ export function TweetImageButton() {
     }
 
     return (
-        <div onClick={openFileLoader} className="absolute left-2 bottom-2 cursor-pointer">
+        <div onClick={openFileLoader} className="cursor-pointer">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="size-6">
                 <rect x="0" fill="none" width="24" height="24" />
                 <g>

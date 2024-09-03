@@ -12,7 +12,7 @@ function getAvailableChars(currentTextContent: string) {
 export default function TweetAvailableChars({ currentTextContent }: TweetAvailableCharsProps) {
 
     return (
-        <div className="absolute right-2 bottom-2 text-sm text-gray-400">
+        <div className="text-sm text-gray-400 self-end">
             {getAvailableChars(currentTextContent)}
         </div>
     );

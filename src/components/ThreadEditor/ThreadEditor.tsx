@@ -78,7 +78,11 @@ export default function ThreadEditor() {
                             />
 
                             {/* Icono de puntos que une los distintos tweets del hilo */}
-                            <TweetRelationIcon visible={index < tweets.length - 1 && index !== tweets.length - 1} />
+                            {
+                                // mostrar entre dos tweets si no es el primero ni el último y hay más de un tweet
+                                index < tweets.length - 1 && index !== tweets.length - 1 && 
+                                <TweetRelationIcon />
+                            }
                         </li>
                     )
                 }

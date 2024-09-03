@@ -1,17 +1,16 @@
 import { TweetModel } from "../../models/tweet-model"
 
 interface TweetButtonsProps {
-    visible: boolean,
     threadLength: number,
     tweet: TweetModel,
     onMoveTweet: (index: number, targetIndex: number) => void,
     onDeleteTweet: (index: number) => void
 }
 
-export default function TweetActionButtons({ visible, threadLength, tweet, onMoveTweet, onDeleteTweet }: TweetButtonsProps) {
+export default function TweetActionButtons({ threadLength, tweet, onMoveTweet, onDeleteTweet }: TweetButtonsProps) {
 
     return (
-        visible &&
+        threadLength > 1 &&
         <>
             <div className="flex flex-col gap-2 absolute -right-6 bottom-3 cursor-pointer text-sky-600">
                 {
