@@ -1,5 +1,5 @@
 import { TweetModel } from "../../models/tweet-model";
-import TweetActionButtons from "./TweetActionButtons";
+import TweetActionButtons from "./TweetActionButtons/TweetActionButtons";
 import { TweetDesign } from "./TweetDesign";
 
 interface TweetEditorProps {
