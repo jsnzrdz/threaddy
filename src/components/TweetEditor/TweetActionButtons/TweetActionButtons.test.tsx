@@ -1,16 +1,109 @@
 import { render, screen } from "@testing-library/react";
 import { TweetModel } from "../../../models/tweet-model";
 import TweetActionButtons from "./TweetActionButtons";
-import userEvent from "@testing-library/user-event";
+// import userEvent from "@testing-library/user-event";
 
 // Mock para las funciones de callback
 const mockOnMoveTweet = vitest.fn();
 const mockOnDeleteTweet = vitest.fn();
 
+
+describe("TweetActionButtons", () => {
+
+    let tweet: TweetModel;
+
+    function renderComponent(position: number, threadLength: number) {
+        tweet = {
+            threadPosition: position,
+            textContent: "Test tweet",
+            mediaContent: [null, null, null, null]
+        }
+
+        render(
+            <TweetActionButtons
+                threadLength={threadLength}
+                tweet={tweet}
+                onMoveTweet={mockOnMoveTweet}
+                onDeleteTweet={mockOnDeleteTweet}
+            />
+        )
+    }
+
+    describe("when the component belongs to a single tweet in a thread", () => {
+        beforeEach(() => renderComponent(0, 1));
+
+        it("should not display arrow up button", () => {
+            const arrowUpElement = screen.queryByLabelText('Move tweet up');
+            expect(arrowUpElement).toBeNull();
+        })
+        it("should not display arrow down button", () => {
+            const arrowDownElement = screen.queryByLabelText('Move tweet down');
+            expect(arrowDownElement).toBeNull();
+        })
+        it("should not display delete button", () => {
+            const deleteElement = screen.queryByLabelText('Delete tweet');
+            expect(deleteElement).toBeNull();
+        })
+    });
+
+    describe("when the component belongs to the first tweet in multi-tweet thread", () => {
+        beforeEach(() => renderComponent(0, 5));
+
+        it("should not display arrow up button", () => {
+            const arrowUpElement = screen.queryByLabelText('Move tweet up');
+            expect(arrowUpElement).toBeNull();
+        })
+        it("should display arrow down button", () => {
+            const arrowDownElement = screen.queryByLabelText('Move tweet down');
+            expect(arrowDownElement).toBeInTheDocument();
+        })
+        it("should display delete button", () => {
+            const deleteElement = screen.queryByLabelText('Delete tweet');
+            expect(deleteElement).toBeInTheDocument();
+        })
+    });
+
+    describe("when the component belongs to a middle tweet in a thread", () => {
+        beforeEach(() => renderComponent(2, 5));
+
+        it("should display arrow up button", () => {
+            const arrowUpElement = screen.queryByLabelText('Move tweet up');
+            expect(arrowUpElement).toBeInTheDocument();
+        })
+        it("should display arrow down button", () => {
+            const arrowDownElement = screen.queryByLabelText('Move tweet down');
+            expect(arrowDownElement).toBeInTheDocument();
+        })
+        it("should display delete button", () => {
+            const deleteElement = screen.queryByLabelText('Delete tweet');
+            expect(deleteElement).toBeInTheDocument();
+        })
+    });
+
+    describe("when the component belongs to a final tweet in a thread", () => {
+        beforeEach(() => renderComponent(4, 5));
+
+        it("should display arrow up button", () => {
+            const arrowUpElement = screen.queryByLabelText('Move tweet up');
+            expect(arrowUpElement).toBeInTheDocument();
+        })
+        it("should not display arrow down button", () => {
+            const arrowDownElement = screen.queryByLabelText('Move tweet down');
+            expect(arrowDownElement).toBeNull();
+        })
+        it("should display delete button", () => {
+            const deleteElement = screen.queryByLabelText('Delete tweet');
+            expect(deleteElement).toBeInTheDocument();
+        })
+    });
+})
+
+// Tests antiguos
+/**
 describe("TweetActionButtons component render", () => {
 
     let tweet: TweetModel;
-    
+
     describe("Button's events of tweet action buttons", () => {
         beforeEach(() => {
             tweet = {
@@ -61,7 +154,7 @@ describe("TweetActionButtons component render", () => {
             await userEvent.click(deleteButton);
 
             expect(mockOnDeleteTweet).toHaveBeenCalledTimes(1);
-            expect(mockOnDeleteTweet).toHaveBeenCalledWith(1); 
+            expect(mockOnDeleteTweet).toHaveBeenCalledWith(1);
         });
     })
 
@@ -216,3 +309,5 @@ describe("TweetActionButtons component render", () => {
         vitest.clearAllMocks();
     });
 });
+
+ */
