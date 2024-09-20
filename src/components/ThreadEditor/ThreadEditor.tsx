@@ -11,9 +11,9 @@ const initialThread: TweetModel[] = [
         textContent: "",
         mediaContent: [null, null, null, null]
     }
-
 ]
 
+// Container Component
 export default function ThreadEditor() {
     const [tweets, setTweets] = useState<TweetModel[]>(initialThread);
 
@@ -86,7 +86,7 @@ export default function ThreadEditor() {
             <h2 className="text-xl font-semibold text-center">¡Empieza a escribir tu hilo! 🧵</h2>
 
             {/* Lista de tweets que representa el hilo completo */}
-            <ol className="mt-6 flex flex-col gap-2">
+            <ol role="list" className="mt-6 flex flex-col gap-2">
                 {
                     tweets.map((tweet, index) =>
                         <li key={tweet.threadPosition}>
