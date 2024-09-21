@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TweetAvailableChars from "./TweetAvailableChars";
+import TweetAvailableChars from "./TweetAvailableChars/TweetAvailableChars";
 import { TweetImageButton } from "./TweetImageButton";
 import { TweetModel } from "../../models/tweet-model";
 import TweetMediaContent from "./TweetMediaContent/TweetMediaContent";

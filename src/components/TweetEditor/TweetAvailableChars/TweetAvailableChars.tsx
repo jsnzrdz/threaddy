@@ -12,7 +12,7 @@ export default function TweetAvailableChars({ currentTextContent }: TweetAvailab
 }
 
 // Máximo de caracteres de un tweet
-const AVAILABLE_CHARS: number = 162;
+export const AVAILABLE_CHARS: number = 162;
 
 // Calcula el número de caracteres restantes del tweet
 function getAvailableChars(currentTextContent: string) {
